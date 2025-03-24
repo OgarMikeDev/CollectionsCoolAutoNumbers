@@ -2,32 +2,41 @@ import java.util.ArrayList;
 
 public class CoolNumbers {
     public static void main(String[] args) {
-        generateCoolNumbers();
+        ArrayList<String> listAutoNumbers = generateCoolNumbers();
+
+        for (String currentAutoNumber : listAutoNumbers) {
+            System.out.println(currentAutoNumber);
+        }
     }
+
     public static ArrayList<String> generateCoolNumbers() {
-        ArrayList<String> coolNumbers = new ArrayList<>();
+        ArrayList<String> listAutoNumbers = new ArrayList<>();
+
+        //А777ХУ23
         for (int i = 0; i < 2_000_000; i++) {
-            //А000ВХ199
             String letters = "А,В,Е,К,М,Н,О,Р,С,Т,У,Х";
             String[] arrayLetters = letters.split(","); //индексы - от 0 до 11
-            int randomNumberLetter1 = (int) (Math.random() * (arrayLetters.length));
-            String randomLetter1 = arrayLetters[randomNumberLetter1];
 
-            int randomNumberLetter2 = (int) (Math.random() * (arrayLetters.length));
-            String randomLetter2 = arrayLetters[randomNumberLetter2];
-
-            int randomNumberLetter3 = (int) (Math.random() * (arrayLetters.length));
-            String randomLetter3 = arrayLetters[randomNumberLetter3];
+            int randomNumberLetter = (int) (Math.random() * 12);
+            String randomLetter = arrayLetters[randomNumberLetter];
 
             int randomNumber = (int) (Math.random() * 10);
-            int randomNumberRegion = 1 + (int) (Math.random() * (200));
 
-            String autoNumber = randomLetter1 +
-                    randomNumber + randomNumber + randomNumber
-                    + randomLetter2 + randomLetter3 +
-                    randomNumberRegion;
-            System.out.println(autoNumber);
+            int randomNumberLetter2 = (int) (Math.random() * 12);
+            String randomLetter2 = arrayLetters[randomNumberLetter2];
+
+            int randomNumberLetter3 = (int) (Math.random() * 12);
+            String randomLetter3 = arrayLetters[randomNumberLetter3];
+
+            int randomRegion = 1 + (int) (Math.random() * 199);
+
+            String randomAutoNumber = randomLetter +
+                    randomNumber + randomNumber + randomNumber +
+                    randomLetter2 + randomLetter3 +
+                    randomRegion;
+            listAutoNumbers.add(randomAutoNumber);
         }
-        return coolNumbers;
+
+        return listAutoNumbers;
     }
 }
