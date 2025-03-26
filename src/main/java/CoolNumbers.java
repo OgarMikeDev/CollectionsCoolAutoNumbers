@@ -15,7 +15,8 @@ public class CoolNumbers {
                 long end = System.currentTimeMillis();
                 long difference = end - start;
                 System.out.println("За " + difference + " мс был найден искомый номер " + currentAutoNumber +
-                        " методом перебора!");
+                        " методом перебора!\n" +
+                        "И он находится в позиции " + i);
             }
         }
     }
@@ -37,7 +38,8 @@ public class CoolNumbers {
         long end = System.currentTimeMillis();
         long difference = end - start;
         System.out.println("За " + difference + " мс был найден искомый номер " + listCoolNumbers.get(m) +
-                " с помощью бинарного поиска!");
+                " с помощью бинарного поиска!\n" +
+                "И он находится в позиции " + m);
     }
 
     public static ArrayList<String> generateCoolNumbers() {
