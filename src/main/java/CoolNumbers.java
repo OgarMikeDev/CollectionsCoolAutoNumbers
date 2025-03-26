@@ -4,26 +4,46 @@ public class CoolNumbers {
     public static void main(String[] args) {
         ArrayList<String> listCoolNumbers = generateCoolNumbers();
         getIndexSearchNameEnumerate(listCoolNumbers.get(listCoolNumbers.size() - 1), listCoolNumbers);
-
+        getIndexBinarySearchNameEnumerate(listCoolNumbers.get(listCoolNumbers.size() - 1), listCoolNumbers);
     }
 
     public static void getIndexSearchNameEnumerate(String searchAutoNumber, ArrayList<String> listCoolNumbers) {
         long start = System.currentTimeMillis();
         for (int i = 0; i < listCoolNumbers.size(); i++) {
             String currentAutoNumber = listCoolNumbers.get(i);
-            if (currentAutoNumber.equals(searchAutoNumber)){
+            if (currentAutoNumber.equals(searchAutoNumber)) {
                 long end = System.currentTimeMillis();
                 long difference = end - start;
-                System.out.println("За " + difference + " мс был найден искомый номер." +
-                        "\n" + currentAutoNumber + " находится на позиции " + i);
+                System.out.println("За " + difference + " мс был найден искомый номер " + currentAutoNumber +
+                        " методом перебора!");
             }
         }
+    }
+
+    public static void getIndexBinarySearchNameEnumerate(String searchAutoNumber, ArrayList<String> listCoolNumbers) {
+        long start = System.currentTimeMillis();
+
+        int s = 0;
+        int e = listCoolNumbers.size() - 1;
+        int m = (s + e) / 2;
+        while (searchAutoNumber.compareTo(listCoolNumbers.get(m)) != 0) {
+            if (searchAutoNumber.compareTo(listCoolNumbers.get(m)) > 0) {
+                s = m + 1;
+            } else if (searchAutoNumber.compareTo(listCoolNumbers.get(m)) < 0) {
+                e = m - 1;
+            }
+            m = (s + e) / 2;
+        }
+        long end = System.currentTimeMillis();
+        long difference = end - start;
+        System.out.println("За " + difference + " мс был найден искомый номер " + listCoolNumbers.get(m) +
+                " с помощью бинарного поиска!");
     }
 
     public static ArrayList<String> generateCoolNumbers() {
         ArrayList<String> listCoolNumbers = new ArrayList<>();
         //А111ХУ193
-        for (int i = 0; i < 2_000_000; i++) {
+        for (int i = 0; i < 50_000; i++) {
             String letters = "А, В, Е, К, М, Н, О, Р, С, Т, У, Х";
             String[] arrayLetters = letters.split(", ");
 
@@ -49,7 +69,19 @@ public class CoolNumbers {
                     randomNumber + randomNumber + randomNumber +
                     randomLetter2 + randomLetter3 +
                     randomRegion;
-            listCoolNumbers.add(randomAutoNumber);
+            if (!listCoolNumbers.contains(randomAutoNumber)) {
+                listCoolNumbers.add(randomAutoNumber);
+            }
+        }
+
+        for (int i = 0; i < listCoolNumbers.size() - 1; i++) {
+            for (int j = i + 1; j < listCoolNumbers.size(); j++) {
+                if (listCoolNumbers.get(i).compareTo(listCoolNumbers.get(j)) > 0) {
+                    String temp = listCoolNumbers.get(j);
+                    listCoolNumbers.set(j, listCoolNumbers.get(i));
+                    listCoolNumbers.set(i, temp);
+                }
+            }
         }
 
         return listCoolNumbers;
